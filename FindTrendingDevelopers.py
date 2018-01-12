@@ -1,4 +1,4 @@
-#hello.py
+#FindTrendingDevelopers.py
 import sys
 from github import Github
 import networkx as nx
@@ -19,7 +19,7 @@ g.add_node(repo.name + '(repo)', type='repo', lang=repo.language, owner=user.log
 for sg in stargazers:
     g.add_node(sg.login + '(user)', type='user')
     g.add_edge(sg.login + '(user)', repo.name + '(repo)', type='gazes')
-	
+
 for i, sg in enumerate(stargazers):   
     # 增加关注联系，如果有关注者的话
     try:
@@ -32,7 +32,7 @@ for i, sg in enumerate(stargazers):
                              sg.login, "Skipping.")
 
     print ("Processed", i+1, " stargazers. Num nodes/edges in graph", \
-          g.number_of_nodes(), "/", g.number_of_edges())
+          #g.number_of_nodes(), "/", g.number_of_edges())
     print ("Rate limit remaining", client.rate_limiting)
 
 # 看下更新的图信息

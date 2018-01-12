@@ -1,4 +1,4 @@
-# a.py
+# FindActiveRespository.py
 import sys
 from github import Github
 import networkx as nx
@@ -28,3 +28,15 @@ for i, sg in enumerate(stargazers):
     print ("Processed", i+1, "stargazers' starred repos")
     print ("Num nodes/edges in graph", g.number_of_nodes(), "/", g.number_of_edges())
     print ("Rate limit", client.rate_limiting)
+print (nx.info(g),'\n')
+
+# 拿到图里面的所有项目构成列表
+repos = [n for n in g.nodes_iter() if g.node[n]['type'] == 'repo']
+
+# 关注最多的前10个项目
+print ("Popular repositories")
+print (sorted([(n,d) 
+              for (n,d) in g.in_degree_iter() 
+                  if g.node[n]['type'] == 'repo'], \
+             key=itemgetter(1), reverse=True)[:10])
+
